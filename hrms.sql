@@ -58,7 +58,7 @@ CREATE TABLE public.job_seekers
 
 CREATE TABLE public.job_titles
 (
-    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 5 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     job_name character varying(30) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -76,6 +76,15 @@ CREATE TABLE public.users
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     email character varying(50) NOT NULL,
     password character varying(50) NOT NULL,
+    dtype character varying(31) NOT NULL,
+    birth_date timestamp without time zone,
+    first_name character varying(255),
+    identity_number character varying(255),
+    last_name character varying(255),
+    company_name character varying(255),
+    is_activated boolean,
+    phone_number character varying(255),
+    web_adress character varying(255),
     PRIMARY KEY (id)
 );
 
