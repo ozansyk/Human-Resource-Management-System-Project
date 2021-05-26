@@ -18,6 +18,7 @@ import com.ozansyk.hrms.entities.concretes.Employer;
 @Service
 public class EmployerManager implements EmployerService {
 	
+	private String registerFailedMessage = "";
 	private EmployerDao employerDao;
 	private MailCheckService mailCheckService;
 
@@ -36,12 +37,31 @@ public class EmployerManager implements EmployerService {
 	@Override
 	public Result add(Employer employer) {
 		
-		if(this.mailCheckService.sendCheckMail(employer)) {
+		if(this.mailCheckService.sendCheckMail(employer) && this.checkFieldsforRegister(employer)) {
 			this.employerDao.save(employer);
 			return new SuccessResult("Employer successfully singed up.");
 		} else {
-			return new ErrorResult("Verification or anything failed.");
+			return new ErrorResult(registerFailedMessage);
 		}
+	}
+
+	@Override
+	public boolean checkFieldsforRegister(Employer employer) {
+		String[] webSplits = employer.getWebAdress().split("\\.", 2);
+		String[] emailSplits = employer.getEmail().split("@", 2);
+		
+		for(Employer emp : this.employerDao.findAll()) {
+			if(employer.getEmail().equals(emp.getEmail())) {
+				registerFailedMessage = "Bu email ile daha önce kayıt yapmılmış!";
+				return false;
+			}
+		}
+		
+		if(webSplits[webSplits.length-1].equals(emailSplits[emailSplits.length-1])) {
+			return true;
+			}
+		registerFailedMessage = "Email, websitesi ile aynı domaine sahip değil!";
+		return false;
 	}
 
 }

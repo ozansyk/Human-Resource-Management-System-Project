@@ -10,4 +10,5 @@ public interface EmployerService {
 	
 	DataResult<List<Employer>> getAll();
 	Result add(Employer employer);
+	boolean checkFieldsforRegister(Employer employer);
 }

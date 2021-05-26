@@ -9,4 +9,5 @@ import com.ozansyk.hrms.entities.concretes.JobSeeker;
 public interface JobSeekerService {
 	DataResult<List<JobSeeker>> getAll();
 	Result add(JobSeeker jobSeeker);
+	boolean checkFieldsforRegister(JobSeeker jobSeeker);
 }
