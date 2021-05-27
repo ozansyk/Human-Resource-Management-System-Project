@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ozansyk.hrms.business.abstracts.JobSeekerService;
+import com.ozansyk.hrms.business.constants.Messages;
 import com.ozansyk.hrms.core.adapters.abstracts.MailCheckService;
 import com.ozansyk.hrms.core.adapters.abstracts.MernisCheckService;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
@@ -26,7 +27,6 @@ public class JobSeekerManager implements JobSeekerService {
 
 	@Autowired
 	public JobSeekerManager(JobSeekerDao jobSeekerDao, MernisCheckService mernisCheckService, MailCheckService mailCheckService) {
-		super();
 		this.jobSeekerDao = jobSeekerDao;
 		this.mernisCheckService = mernisCheckService;
 		this.mailCheckService = mailCheckService;
@@ -34,7 +34,7 @@ public class JobSeekerManager implements JobSeekerService {
 
 	@Override
 	public DataResult<List<JobSeeker>> getAll() {
-		return new SuccessDataResult<List<JobSeeker>>(this.jobSeekerDao.findAll(), "Job seekers listed.");
+		return new SuccessDataResult<List<JobSeeker>>(this.jobSeekerDao.findAll(), Messages.jobSeekerListed);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class JobSeekerManager implements JobSeekerService {
 		if(this.mailCheckService.sendCheckMail(jobSeeker) && this.mernisCheckService.checkIfRealPerson(jobSeeker)
 				&& checkFieldsforRegister(jobSeeker)) {
 			this.jobSeekerDao.save(jobSeeker);
-			return new SuccessResult("Job seeker successfully signed up.");
+			return new SuccessResult(Messages.jobSeekerSuccessRegistered);
 		} else {
 			return new ErrorResult(registerFailedMessage);
 		}
@@ -53,17 +53,17 @@ public class JobSeekerManager implements JobSeekerService {
 	public boolean checkFieldsforRegister(JobSeeker jobSeeker) {
 		for(JobSeeker seeker : jobSeekerDao.findAll()) {
 			if(jobSeeker.getEmail().equals(seeker.getEmail()) ) {
-				registerFailedMessage = "Bu mail ile daha önce kayıt olunmuş!";
+				registerFailedMessage = Messages.jobSeekerCheckFailedEmail;
 				return false;
 			}
 			if(jobSeeker.getIdentitynumber().equals(seeker.getIdentitynumber())) {
-				registerFailedMessage = "Bu TcNo ile daha önce kayıt olunmuş!";
+				registerFailedMessage = Messages.jobSeekerCheckFailedTc;
 				return false;
 			}
 			
 			String[] emailsplits = jobSeeker.getEmail().split("@");
 			if(emailsplits.length == 0) {
-				registerFailedMessage = "Yazdığınız email, email formatında değil!";
+				registerFailedMessage = Messages.jobSeekerCheckFailedEmailFormat;
 				return false;
 			}
 		}

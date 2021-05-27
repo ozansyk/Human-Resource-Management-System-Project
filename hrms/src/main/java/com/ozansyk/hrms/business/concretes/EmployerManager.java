@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ozansyk.hrms.business.abstracts.EmployerService;
+import com.ozansyk.hrms.business.constants.Messages;
 import com.ozansyk.hrms.core.adapters.abstracts.MailCheckService;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
 import com.ozansyk.hrms.core.utilities.results.ErrorResult;
@@ -24,14 +25,13 @@ public class EmployerManager implements EmployerService {
 
 	@Autowired
 	public EmployerManager(EmployerDao employerDao, MailCheckService mailCheckService) {
-		super();
 		this.employerDao = employerDao;
 		this.mailCheckService = mailCheckService;
 	}
 
 	@Override
 	public DataResult<List<Employer>> getAll() {
-		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(), "Employers listed.");
+		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(), Messages.employerListed);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class EmployerManager implements EmployerService {
 		
 		if(this.mailCheckService.sendCheckMail(employer) && this.checkFieldsforRegister(employer)) {
 			this.employerDao.save(employer);
-			return new SuccessResult("Employer successfully singed up.");
+			return new SuccessResult(Messages.employerSuccessRegistered);
 		} else {
 			return new ErrorResult(registerFailedMessage);
 		}
@@ -52,7 +52,7 @@ public class EmployerManager implements EmployerService {
 		
 		for(Employer emp : this.employerDao.findAll()) {
 			if(employer.getEmail().equals(emp.getEmail())) {
-				registerFailedMessage = "Bu email ile daha önce kayıt yapmılmış!";
+				registerFailedMessage = Messages.employerRegisterFailedEmail;
 				return false;
 			}
 		}
@@ -60,7 +60,7 @@ public class EmployerManager implements EmployerService {
 		if(webSplits[webSplits.length-1].equals(emailSplits[emailSplits.length-1])) {
 			return true;
 			}
-		registerFailedMessage = "Email, websitesi ile aynı domaine sahip değil!";
+		registerFailedMessage = Messages.employerRegisterFailedEmailWeb;
 		return false;
 	}
 

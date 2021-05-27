@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ozansyk.hrms.business.abstracts.JobService;
+import com.ozansyk.hrms.business.constants.Messages;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
 import com.ozansyk.hrms.core.utilities.results.ErrorResult;
 import com.ozansyk.hrms.core.utilities.results.Result;
@@ -22,20 +23,19 @@ public class JobManager implements JobService {
 
 	@Autowired
 	public JobManager(JobDao jobDao) {
-		super();
 		this.jobDao = jobDao;
 	}
 
 	@Override
 	public DataResult<List<Job>> getAll() {
-		return new SuccessDataResult<List<Job>>(this.jobDao.findAll(), "Jobs listed.");
+		return new SuccessDataResult<List<Job>>(this.jobDao.findAll(), Messages.jobListed);
 	}
 
 	@Override
 	public Result add(Job job) {
 		if(checkJobExist(job)) {
 			this.jobDao.save(job);
-		return new SuccessResult("Job added.");
+		return new SuccessResult(Messages.jobSuccessAdd);
 		} else {
 			return new ErrorResult(jobNameCheckMessage);
 		}
@@ -46,7 +46,7 @@ public class JobManager implements JobService {
 	public boolean checkJobExist(Job job) {
 		for(Job j : this.jobDao.findAll()) {
 			if(job.getJobName().equals(j.getJobName())) {
-				jobNameCheckMessage = "Bu iş pozisyonu zaten mecvut!";
+				jobNameCheckMessage = Messages.jobChecktoAdd;
 				return false;
 			}
 		}
