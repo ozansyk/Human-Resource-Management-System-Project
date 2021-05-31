@@ -23,6 +23,18 @@ CREATE TABLE public.activation_codes
     activation_code character varying(40) NOT NULL,
     is_confimed boolean NOT NULL,
     confimed_time date,
+    dtype character varying(31) NOT NULL,
+    confirmed_time timestamp without time zone,
+    is_confirmed boolean,
+    employer_id integer,
+    job_seeker_id integer,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.cities
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    city_name character varying(20) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -43,6 +55,22 @@ CREATE TABLE public.employers
     web_address character varying(50) NOT NULL,
     phone_number character varying(12) NOT NULL,
     is_activated boolean NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.job_advertisement
+(
+    id integer NOT NULL,
+    description character varying(255),
+    end_time timestamp without time zone,
+    max_salary integer,
+    min_salary integer,
+    number_positions integer,
+    city_id integer,
+    employer_id integer,
+    job_id integer,
+    is_active boolean,
+    publish_date date,
     PRIMARY KEY (id)
 );
 
@@ -118,6 +146,24 @@ ALTER TABLE public.employer_activation_by_system_personels
 ALTER TABLE public.employers
     ADD FOREIGN KEY (id)
     REFERENCES public.users (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_advertisement
+    ADD FOREIGN KEY (city_id)
+    REFERENCES public.cities (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_advertisement
+    ADD FOREIGN KEY (job_id)
+    REFERENCES public.job_titles (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_advertisement
+    ADD FOREIGN KEY (employer_id)
+    REFERENCES public.employers (id)
     NOT VALID;
 
 
