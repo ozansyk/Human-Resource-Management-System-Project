@@ -46,6 +46,11 @@ public class EmployerManager implements EmployerService {
 	}
 
 	@Override
+	public DataResult<List<Employer>> getAllActiveJobAdvertisements() {
+		return new SuccessDataResult<List<Employer>>(this.employerDao.getAllActiveJobAdvertisements());
+	}
+	
+	@Override
 	public boolean checkFieldsforRegister(Employer employer) {
 		String[] webSplits = employer.getWebAdress().split("\\.", 2);
 		String[] emailSplits = employer.getEmail().split("@", 2);

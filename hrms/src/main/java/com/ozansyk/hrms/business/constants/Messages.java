@@ -20,4 +20,7 @@ public class Messages {
 	public static String jobSeekerCheckFailedTc = "Bu TcNo ile daha önce kayıt olunmuş!";
 	public static String jobSeekerCheckFailedEmailFormat = "Yazdığınız email, email formatında değil!";
 	
+	//Jobadvertisement
+	public static String jobAdvertisementListed = "Job advertisements listed.";
+	public static String jobAdvertisementSuccessAdd = "Job advertisement added.";
 }

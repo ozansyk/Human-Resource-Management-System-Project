@@ -35,5 +35,10 @@ public class EmployersController {
 	public Result add(@RequestBody Employer employer) {
 		return this.employerService.add(employer);
 	}
+	
+	@GetMapping("/getAllActiveJobAdvertisements")
+	public DataResult<List<Employer>> getAllActiveJobAdvertisements() {
+		return this.employerService.getAllActiveJobAdvertisements();
+	}
 
 }
