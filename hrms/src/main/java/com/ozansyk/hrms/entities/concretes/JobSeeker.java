@@ -1,5 +1,6 @@
 package com.ozansyk.hrms.entities.concretes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,10 +35,10 @@ public class JobSeeker extends User {
 	private String identitynumber;
 	
 	@Column(name="birth_date")
-	private Date birthDate;
+	private LocalDate birthDate;
 
 	public JobSeeker(String email, String password, String firstName, String lastName, String identitynumber,
-			Date birthDate) {
+			LocalDate birthDate) {
 		super(email, password);
 		this.firstName = firstName;
 		this.lastName = lastName;

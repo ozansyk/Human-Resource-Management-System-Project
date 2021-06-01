@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ozansyk.hrms.business.abstracts.CityService;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
+import com.ozansyk.hrms.core.utilities.results.ErrorResult;
 import com.ozansyk.hrms.core.utilities.results.Result;
 import com.ozansyk.hrms.core.utilities.results.SuccessDataResult;
 import com.ozansyk.hrms.core.utilities.results.SuccessResult;
@@ -29,7 +30,13 @@ public class CityManager implements CityService {
 	}
 	
 	@Override
-	public Result add(City city) {
+	public Result add(String cityName) {
+		
+		if(this.cityDao.getByCityName(cityName) != null) {
+			return new ErrorResult("Bu şehir zaten mevcut!");
+		}
+		
+		City city = new City(cityName);
 		this.cityDao.save(city);
 		return new SuccessResult("Şehir eklendi.");
 	}

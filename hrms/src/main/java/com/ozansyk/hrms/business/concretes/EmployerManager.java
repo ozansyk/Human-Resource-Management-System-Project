@@ -35,9 +35,16 @@ public class EmployerManager implements EmployerService {
 	}
 
 	@Override
-	public Result add(Employer employer) {
+	public Result add(String email, String password, String passwordConfirmed, String companyName, String webAdress, String phoneNumber) {
+		
+		if(password.equals(passwordConfirmed) == false) {
+			return new ErrorResult("Şifreler uyuşmuyor!");
+		}
+		boolean isActivated = false;
+		Employer employer = new Employer(email, password, companyName, webAdress, phoneNumber, isActivated);
 		
 		if(this.mailCheckService.sendCheckMail(employer) && this.checkFieldsforRegister(employer)) {
+			employer.setActivated(true);
 			this.employerDao.save(employer);
 			return new SuccessResult(Messages.employerSuccessRegistered);
 		} else {

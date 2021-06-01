@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ozansyk.hrms.business.abstracts.EmployerService;
@@ -31,9 +32,10 @@ public class EmployersController {
 		return this.employerService.getAll();
 	}
 	
-	@PostMapping("/add")
-	public Result add(@RequestBody Employer employer) {
-		return this.employerService.add(employer);
+	@PostMapping("/register")
+	public Result add(@RequestParam String email, @RequestParam String password, @RequestParam String passwordConfirmed, 
+			@RequestParam String companyName, @RequestParam String webAdress, @RequestParam String phoneNumber) {
+		return this.employerService.add(email, password, passwordConfirmed, companyName, webAdress, phoneNumber);
 	}
 	
 	@GetMapping("/getAllActiveJobAdvertisements")

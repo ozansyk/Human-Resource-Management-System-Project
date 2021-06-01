@@ -34,5 +34,9 @@ public class Job {
 	
 	@OneToMany(mappedBy="job")
 	private List<JobAdvertisement> jobAdvertisements;
+
+	public Job(String jobName) {
+		this.jobName = jobName;
+	}
 	
 }

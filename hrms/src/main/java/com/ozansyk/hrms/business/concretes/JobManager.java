@@ -32,7 +32,8 @@ public class JobManager implements JobService {
 	}
 
 	@Override
-	public Result add(Job job) {
+	public Result add(String jobName) {
+		Job job = new Job(jobName);
 		if(checkJobExist(job)) {
 			this.jobDao.save(job);
 		return new SuccessResult(Messages.jobSuccessAdd);

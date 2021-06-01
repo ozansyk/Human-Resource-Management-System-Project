@@ -13,9 +13,11 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name="cities")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements"})
 public class City {
@@ -30,5 +32,9 @@ public class City {
 	
 	@OneToMany(mappedBy = "city")
 	private List<JobAdvertisement> jobAdvertisements;
+
+	public City(String cityName) {
+		this.cityName = cityName;
+	}
 	
 }

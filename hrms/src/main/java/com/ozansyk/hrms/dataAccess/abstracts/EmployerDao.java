@@ -12,4 +12,6 @@ public interface EmployerDao extends JpaRepository<Employer, Integer> {
 	@Query("From Employer where isActivated=true")
 	List<Employer> getAllActiveJobAdvertisements();
 	
+	Employer getById(int id);
+	
 }

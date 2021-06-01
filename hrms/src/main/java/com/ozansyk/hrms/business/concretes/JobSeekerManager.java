@@ -1,5 +1,6 @@
 package com.ozansyk.hrms.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,16 @@ public class JobSeekerManager implements JobSeekerService {
 	}
 
 	@Override
-	public Result add(JobSeeker jobSeeker) {
+	public Result add(String firstName, String lastName, String email, String password, String passwordConfirm, String identitynumber, 
+			 int birthYear, int birthMonth, int birthDay) {
+		
+		if((password.equals(passwordConfirm)) == false) {
+			return new ErrorResult("Şifreler uyuşmuyor!");
+		}
+		
+		LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
+		
+		JobSeeker jobSeeker = new JobSeeker(email, password, firstName, lastName, identitynumber, birthDate);
 		
 		if(this.mailCheckService.sendCheckMail(jobSeeker) && this.mernisCheckService.checkIfRealPerson(jobSeeker)
 				&& checkFieldsforRegister(jobSeeker)) {
@@ -51,21 +61,22 @@ public class JobSeekerManager implements JobSeekerService {
 
 	@Override
 	public boolean checkFieldsforRegister(JobSeeker jobSeeker) {
-		for(JobSeeker seeker : jobSeekerDao.findAll()) {
-			if(jobSeeker.getEmail().equals(seeker.getEmail()) ) {
-				registerFailedMessage = Messages.jobSeekerCheckFailedEmail;
-				return false;
-			}
-			if(jobSeeker.getIdentitynumber().equals(seeker.getIdentitynumber())) {
-				registerFailedMessage = Messages.jobSeekerCheckFailedTc;
-				return false;
-			}
-			
-			String[] emailsplits = jobSeeker.getEmail().split("@");
-			if(emailsplits.length == 0) {
-				registerFailedMessage = Messages.jobSeekerCheckFailedEmailFormat;
-				return false;
-			}
+		if(this.jobSeekerDao.getByEmail(jobSeeker.getEmail()) != null) {
+			registerFailedMessage = Messages.jobSeekerCheckFailedEmail;
+			return false;
+		}
+		for(JobSeeker js : this.jobSeekerDao.findAll()) {
+			if(js.getIdentitynumber().equals(jobSeeker.getIdentitynumber())) {
+			registerFailedMessage = Messages.jobSeekerCheckFailedTc;
+			return false;
+		}
+		}
+		
+		
+		String[] emailsplits = jobSeeker.getEmail().split("@");
+		if(emailsplits.length == 0) {
+			registerFailedMessage = Messages.jobSeekerCheckFailedEmailFormat;
+			return false;
 		}
 		return true;
 	}

@@ -32,8 +32,8 @@ public class CitiesController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestBody City city) {
-		return this.cityService.add(city);
+	public Result add(@RequestParam String cityName) {
+		return this.cityService.add(cityName);
 	}
 	
 	@PostMapping("/delete")

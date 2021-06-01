@@ -1,5 +1,6 @@
 package com.ozansyk.hrms.entities.concretes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="job_advertisement")
-@AllArgsConstructor
 @NoArgsConstructor
 public class JobAdvertisement {
 	
@@ -40,10 +40,10 @@ public class JobAdvertisement {
 	private int numberOfPosition;
 	
 	@Column(name="publish_date")
-	private Date publishDate;
+	private LocalDate publishDate;
 	
 	@Column(name="end_time")
-	private Date endTime;
+	private LocalDate endTime;
 	
 	@Column(name="is_active")
 	private boolean isActive;
@@ -59,5 +59,19 @@ public class JobAdvertisement {
 	@ManyToOne()
 	@JoinColumn(name="employer_id")
 	private Employer employer;
+
+	public JobAdvertisement(String description, int minSalary, int maxSalary, int numberOfPosition, LocalDate publishDate,
+			LocalDate endTime, boolean isActive, City city, Job job, Employer employer) {
+		this.description = description;
+		this.minSalary = minSalary;
+		this.maxSalary = maxSalary;
+		this.numberOfPosition = numberOfPosition;
+		this.publishDate = publishDate;
+		this.endTime = endTime;
+		this.isActive = isActive;
+		this.city = city;
+		this.job = job;
+		this.employer = employer;
+	}
 	
 }
