@@ -1,26 +1,23 @@
 package com.ozansyk.hrms.entities.concretes;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ozansyk.hrms.entities.abstracts.User;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","JobAdvertisement"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","photos", "curriculumVitae"})
 @NoArgsConstructor
 @Table(name="job_seekers")
 public class JobSeeker extends User {
@@ -36,6 +33,12 @@ public class JobSeeker extends User {
 	
 	@Column(name="birth_date")
 	private LocalDate birthDate;
+	
+	@OneToMany(mappedBy = "jobSeeker")
+	private List<Photo> photos;
+	
+	@OneToOne(mappedBy = "jobSeeker")
+	private CurriculumVitae curriculumVitae;
 
 	public JobSeeker(String email, String password, String firstName, String lastName, String identitynumber,
 			LocalDate birthDate) {

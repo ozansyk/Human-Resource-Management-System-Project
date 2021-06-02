@@ -7,4 +7,5 @@ import com.ozansyk.hrms.entities.concretes.JobSeeker;
 public interface JobSeekerDao extends JpaRepository<JobSeeker, Integer> {
 	JobSeeker getByEmail(String email);
 	JobSeeker getByIdentitynumber(String identitynumber);
+	JobSeeker getById(int id);
 }
