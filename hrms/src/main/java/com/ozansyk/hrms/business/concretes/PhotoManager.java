@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ozansyk.hrms.business.abstracts.PhotoService;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
+import com.ozansyk.hrms.core.utilities.results.ErrorResult;
 import com.ozansyk.hrms.core.utilities.results.Result;
 import com.ozansyk.hrms.core.utilities.results.SuccessDataResult;
 import com.ozansyk.hrms.core.utilities.results.SuccessResult;
@@ -41,7 +42,7 @@ public class PhotoManager implements PhotoService {
 		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
 		photo.setJobSeeker(jobSeeker);
 		CurriculumVitae curriculumVitae = this.curriculumVitaeDao.getByJobSeeker(jobSeeker);
-		curriculumVitae.setPhoto(photo);
+		photo.setCurriculumVitae(curriculumVitae);
 		this.photoDao.save(photo);
 		return new SuccessResult("Foto yüklendi.");
 	}
@@ -55,6 +56,21 @@ public class PhotoManager implements PhotoService {
 	@Override
 	public DataResult<Photo> getById(int id) {
 		return new SuccessDataResult<Photo>(this.photoDao.getById(id), "Foto bulundu.");
+	}
+
+	@Override
+	public Result deletePhotoFromCv(int jobSeekerId, int photoId) {
+		
+		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
+		for(Photo p : jobSeeker.getCurriculumVitae().getPhotos()) {
+			if(p.getId() == photoId) {
+				this.photoDao.deleteById(photoId);
+				return new SuccessResult("Foto Cv'den başarıyla silindi.");
+			}
+		}
+		
+		return new ErrorResult("Cv'de silinecek foto bulunamadı.");
+		
 	}
 	
 }
