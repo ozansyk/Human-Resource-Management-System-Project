@@ -8,4 +8,5 @@ Kariyer.net benzeri bir projedir. İş verenler ve iş arayanları buluşturan b
 - Spring Boot
 - Spring Data
 - Spring Security
+- -Spring MVC
 - PostgreSql
