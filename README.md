@@ -1,9 +1,9 @@
 # Human-Resource-Management-System-Project
 
-## İnsan Kaynakları Yönetim Sistemi Projesi'nin Back-end Kısmı
-Kariyer.net benzeri bir projedir. İş verenler ve iş arayanları buluşturan bir platform projesidir.
+## Back-end Part of the Human Resources Management System Project
+It is a project similar to Kariyer.net. It is a platform project that brings employers and job seekers together.
 
-## Kullanılan teknolojiler
+## Used technologies
 - Spring Framework
 - Spring Boot
 - Spring Data
