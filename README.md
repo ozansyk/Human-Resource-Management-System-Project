@@ -10,3 +10,5 @@ It is a project similar to Kariyer.net. It is a platform project that brings emp
 - Spring Security
 - Spring MVC
 - PostgreSql
+
+Click for the frontend part of this project https://github.com/ozansyk/Hrms-Frontend-React
