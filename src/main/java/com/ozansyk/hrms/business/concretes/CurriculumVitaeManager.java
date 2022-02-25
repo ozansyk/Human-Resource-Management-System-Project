@@ -48,23 +48,22 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	
 	//Create Cv
 	@Override
-	public Result addCv(int jobSeekerId, String githubAddress, String linkedinAddress) {
+	public Result addCv(CurriculumVitae curriculumVitae) {
 		
-		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
+		JobSeeker jobSeeker = this.jobSeekerDao.getById(curriculumVitae.getJobSeeker().getId());
 		if(jobSeeker.getCurriculumVitae() != null) {
 			return new ErrorResult("Cv'niz zaten mevcut. Önceki cv'nizi silmeniz ya da güncellemeniz gerekmektedir.");
 		}
-		CurriculumVitae curriculumVitae = new CurriculumVitae(jobSeeker, githubAddress, linkedinAddress);
 		this.curriculumVitaeDao.save(curriculumVitae);
 		return new SuccessResult("Cv başarıyla oluşturuldu. Diğer alanları doldurabilirsiniz.");
 	}
 
 	//Update Cv
 	@Override
-	public Result updateCv(int jobSeekerId, String githubAddress, String linkedinAddress) {
-		
-		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
-		jobSeeker.setCurriculumVitae(new CurriculumVitae(jobSeeker, githubAddress, linkedinAddress));
+	public Result updateCv(CurriculumVitae curriculumVitae) {
+
+		JobSeeker jobSeeker = this.jobSeekerDao.getById(curriculumVitae.getJobSeeker().getId());
+		jobSeeker.setCurriculumVitae(curriculumVitae);
 		this.jobSeekerDao.save(jobSeeker);
 		
 		return new SuccessResult("Cv'niz başarıyla güncellendi.");

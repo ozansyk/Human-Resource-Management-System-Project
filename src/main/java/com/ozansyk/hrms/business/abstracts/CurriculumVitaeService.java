@@ -7,11 +7,11 @@ import com.ozansyk.hrms.core.utilities.results.Result;
 import com.ozansyk.hrms.entities.concretes.CurriculumVitae;
 
 public interface CurriculumVitaeService {
-	Result addCv(int jobSeekerId, String githubAddress, String linkedinAddress);
+	Result addCv(CurriculumVitae curriculumVitae);
 	
 	DataResult<CurriculumVitae> getCv(int jobSeekerId);
 	
-	Result updateCv(int jobSeekerId, String githubAddress, String linkedinAddress);
+	Result updateCv(CurriculumVitae curriculumVitae);
 	
 	DataResult<List<CurriculumVitae>> getAllCv();
 

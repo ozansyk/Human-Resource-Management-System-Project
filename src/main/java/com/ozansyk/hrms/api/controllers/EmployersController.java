@@ -31,13 +31,12 @@ public class EmployersController {
 	public DataResult<List<Employer>> getAll() {
 		return this.employerService.getAll();
 	}
-	
+
 	@PostMapping("/register")
-	public Result register(@RequestParam String email, @RequestParam String password, @RequestParam String passwordConfirmed, 
-			@RequestParam String companyName, @RequestParam String webAdress, @RequestParam String phoneNumber) {
-		return this.employerService.add(email, password, passwordConfirmed, companyName, webAdress, phoneNumber);
+	public Result register(@RequestBody Employer employer) {
+		return this.employerService.add(employer);
 	}
-	
+
 	@GetMapping("/getAllActiveJobAdvertisements")
 	public DataResult<List<Employer>> getAllActiveJobAdvertisements() {
 		return this.employerService.getAllActiveJobAdvertisements();

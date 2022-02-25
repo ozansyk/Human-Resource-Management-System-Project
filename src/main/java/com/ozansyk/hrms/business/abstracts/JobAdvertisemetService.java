@@ -12,8 +12,7 @@ import com.ozansyk.hrms.entities.dtos.EmployerWithJobAdvertisementDto;
 
 public interface JobAdvertisemetService {
 	DataResult<List<JobAdvertisement>> getAll();
-	Result add(String description, int minSalary, int maxSalary, int numberOfPosition,
-			int endTimeYear, int endTimeMonth, int endTimeDay, boolean isActive, String cityName, String jobName, int employerId);
+	Result add(JobAdvertisement jobAdvertisement);
 	
 	DataResult<List<EmployerWithJobAdvertisementDto>> getJobAdvertisementWithEmployerDetails();
 	DataResult<List<EmployerWithJobAdvertisementDto>> getActiveJobAdvertisementWithEmployerDetails();

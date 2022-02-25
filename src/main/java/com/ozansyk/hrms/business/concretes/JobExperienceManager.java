@@ -33,22 +33,12 @@ public class JobExperienceManager implements JobExperienceService {
 	}
 
 	@Override
-	public Result addJobExperienceToCv(String workplaceName, String positionName, int startTimeYear, int startTimeMonth,
-			int startTimeDay, int endTimeYear, int endTimeMonth, int endTimeDay, boolean isWorkingNow,
-			int jobSeekerId) {
+	public Result addJobExperienceToCv(JobExperience jobExperience) {
 		
-		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
-		CurriculumVitae curriculumVitae = this.curriculumVitaeDao.getByJobSeeker(jobSeeker);
-		
-		LocalDate startDate = LocalDate.of(startTimeYear, startTimeMonth, startTimeDay);
-		LocalDate endDate = null;
-		
-		if(isWorkingNow == false) {
-			endDate = LocalDate.of(endTimeYear, endTimeMonth, endTimeDay);
-			JobExperience jobExperience = new JobExperience(workplaceName, positionName, startDate, endDate, isWorkingNow, curriculumVitae);
+		if(!jobExperience.isWorkingNow()) {
 			this.jobExperinceDao.save(jobExperience);
 		} else {
-			JobExperience jobExperience = new JobExperience(workplaceName, positionName, startDate, isWorkingNow, curriculumVitae);
+			jobExperience.setEndDate(null);
 			this.jobExperinceDao.save(jobExperience);
 		}
 		

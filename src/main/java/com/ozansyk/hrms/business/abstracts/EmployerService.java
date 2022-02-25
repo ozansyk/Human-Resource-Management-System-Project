@@ -9,7 +9,7 @@ import com.ozansyk.hrms.entities.concretes.Employer;
 public interface EmployerService {
 	
 	DataResult<List<Employer>> getAll();
-	Result add(String email, String password, String passwordConfirmed, String companyName, String webAdress, String phoneNumber);
+	Result add(Employer employer);
 	boolean checkFieldsforRegister(Employer employer);
 	DataResult<List<Employer>> getAllActiveJobAdvertisements();
 }

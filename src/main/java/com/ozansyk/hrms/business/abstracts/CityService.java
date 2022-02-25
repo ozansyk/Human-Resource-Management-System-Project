@@ -8,6 +8,6 @@ import com.ozansyk.hrms.entities.concretes.City;
 
 public interface CityService {
 	DataResult<List<City>> getAll();
-	Result add(String cityName);
+	Result add(City cityName);
 	Result delete(int cityId);
 }

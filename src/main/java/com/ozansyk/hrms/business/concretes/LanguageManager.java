@@ -30,14 +30,9 @@ public class LanguageManager implements LanguageService {
 	}
 
 	@Override
-	public Result addLanguageToCv(String languageName, int languageLevel, int jobSeekerId) {
-		
-		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
-		CurriculumVitae curriculumVitae = this.curriculumVitaeDao.getByJobSeeker(jobSeeker);
-		
-		Language language = new Language(languageName, languageLevel, curriculumVitae);
+	public Result addLanguageToCv(Language language) {
+
 		this.languageDao.save(language);
-		
 		return new SuccessResult("Yabancı dil bilgisi eklendi.");
 		
 	}
@@ -45,7 +40,7 @@ public class LanguageManager implements LanguageService {
 	@Override
 	public Result deleteLanguageFromCv(int jobSeekerId, int languageId) {
 		
-JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
+		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
 		
 		for(Language l : jobSeeker.getCurriculumVitae().getLanguages()) {
 			if(l.getId() == languageId) {

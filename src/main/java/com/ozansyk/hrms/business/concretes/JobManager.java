@@ -1,6 +1,7 @@
 package com.ozansyk.hrms.business.concretes;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,24 +33,21 @@ public class JobManager implements JobService {
 	}
 
 	@Override
-	public Result add(String jobName) {
-		Job job = new Job(jobName);
+	public Result add(Job job) {
 		if(checkJobExist(job)) {
 			this.jobDao.save(job);
-		return new SuccessResult(Messages.jobSuccessAdd);
+			return new SuccessResult(Messages.jobSuccessAdd);
 		} else {
 			return new ErrorResult(jobNameCheckMessage);
 		}
-		
 	}
 
 	@Override
 	public boolean checkJobExist(Job job) {
-		for(Job j : this.jobDao.findAll()) {
-			if(job.getJobName().equals(j.getJobName())) {
-				jobNameCheckMessage = Messages.jobChecktoAdd;
-				return false;
-			}
+		Job existJob = this.jobDao.getByJobName(job.getJobName());
+		if(!Objects.isNull(existJob)) {
+			jobNameCheckMessage = Messages.jobChecktoAdd;
+			return false;
 		}
 		return true;
 	}

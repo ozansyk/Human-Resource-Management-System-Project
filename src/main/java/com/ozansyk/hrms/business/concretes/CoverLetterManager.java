@@ -31,14 +31,9 @@ public class CoverLetterManager implements CoverLetterService {
 	}
 
 	@Override
-	public Result addCoverLetterToCv(String letter, int jobSeekerId) {
-		
-		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
-		CurriculumVitae curriculumVitae = this.curriculumVitaeDao.getByJobSeeker(jobSeeker);
-		
-		CoverLetter coverLetter = new CoverLetter(letter, curriculumVitae);
+	public Result addCoverLetterToCv(CoverLetter coverLetter) {
+
 		this.coverLetterDao.save(coverLetter);
-		
 		return new SuccessResult("Önyazı başarıyla eklendi.");
 		
 	}

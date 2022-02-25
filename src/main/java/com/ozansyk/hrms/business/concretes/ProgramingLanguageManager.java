@@ -31,14 +31,9 @@ public class ProgramingLanguageManager implements ProgramingLanguageService {
 	}
 
 	@Override
-	public Result addProgramingLanguageToCv(String programingLanguageName, int jobSeekerId) {
+	public Result addProgramingLanguageToCv(ProgramingLanguage programingLanguage) {
 
-		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
-		CurriculumVitae curriculumVitae = this.curriculumVitaeDao.getByJobSeeker(jobSeeker);
-		
-		ProgramingLanguage programingLanguage = new ProgramingLanguage(programingLanguageName, curriculumVitae);
 		this.programingLanguageDao.save(programingLanguage);
-		
 		return new SuccessResult("Program/Teknoloji bilgisi eklendi.");
 
 	}

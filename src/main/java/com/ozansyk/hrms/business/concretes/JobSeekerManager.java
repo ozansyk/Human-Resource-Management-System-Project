@@ -39,17 +39,7 @@ public class JobSeekerManager implements JobSeekerService {
 	}
 
 	@Override
-	public Result add(String firstName, String lastName, String email, String password, String passwordConfirm, String identitynumber, 
-			 int birthYear, int birthMonth, int birthDay) {
-		
-		if((password.equals(passwordConfirm)) == false) {
-			return new ErrorResult("Şifreler uyuşmuyor!");
-		}
-		
-		LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
-		
-		JobSeeker jobSeeker = new JobSeeker(email, password, firstName, lastName, identitynumber, birthDate);
-		
+	public Result add(JobSeeker jobSeeker) {
 		if(this.mailCheckService.sendCheckMail(jobSeeker) && this.mernisCheckService.checkIfRealPerson(jobSeeker)
 				&& checkFieldsforRegister(jobSeeker)) {
 			this.jobSeekerDao.save(jobSeeker);

@@ -3,12 +3,7 @@ package com.ozansyk.hrms.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ozansyk.hrms.business.abstracts.CityService;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
@@ -32,11 +27,11 @@ public class CitiesController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestParam String cityName) {
-		return this.cityService.add(cityName);
+	public Result add(@RequestBody City city) {
+		return this.cityService.add(city);
 	}
 	
-	@PostMapping("/delete")
+	@DeleteMapping("/delete")
 	public Result delete(@RequestParam int cityId) {
 		return this.cityService.delete(cityId);
 	}

@@ -45,18 +45,7 @@ public class JobAdvertisementManager implements JobAdvertisemetService {
 	}
 
 	@Override
-	public Result add(String description, int minSalary, int maxSalary, int numberOfPosition, 
-			int endTimeYear, int endTimeMonth, int endTimeDay, boolean isActive, String cityName, String jobName, int employerId) {
-		
-		City city = this.cityDao.getByCityName(cityName);
-		Job job = this.jobDao.getByJobName(jobName);
-		Employer employer = this.employerDao.getById(employerId);
-		
-		LocalDate publishDate = LocalDate.now();
-		LocalDate endTime = LocalDate.of(endTimeYear, endTimeMonth, endTimeDay);
-		
-		JobAdvertisement jobAdvertisement = new JobAdvertisement(description, minSalary, maxSalary, numberOfPosition, publishDate, 
-				endTime, isActive, city, job, employer);
+	public Result add(JobAdvertisement jobAdvertisement) {
 		this.jobAdvertisementDao.save(jobAdvertisement);
 		return new SuccessResult(Messages.jobAdvertisementSuccessAdd);
 	}

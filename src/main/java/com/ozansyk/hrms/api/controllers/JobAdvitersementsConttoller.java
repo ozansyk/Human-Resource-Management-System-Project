@@ -3,12 +3,7 @@ package com.ozansyk.hrms.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ozansyk.hrms.business.abstracts.JobAdvertisemetService;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
@@ -34,12 +29,8 @@ public class JobAdvitersementsConttoller {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestParam String description, @RequestParam int minSalary, @RequestParam int maxSalary, 
-			@RequestParam int numberOfPosition, @RequestParam int endTimeYear, @RequestParam int endTimeMonth, 
-			@RequestParam int endTimeDay, @RequestParam boolean isActive, @RequestParam String cityName, 
-			@RequestParam String jobName, @RequestParam int employerId) {
-		return this.jobAdvertisemetService.add(description, minSalary, maxSalary, numberOfPosition, 
-				endTimeYear, endTimeMonth, endTimeDay, isActive, cityName, jobName, employerId);
+	public Result add(@RequestBody JobAdvertisement jobAdvertisement) {
+		return this.jobAdvertisemetService.add(jobAdvertisement);
 	}
 	
 	@GetMapping("/getDateDesc")

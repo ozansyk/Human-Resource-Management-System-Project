@@ -33,11 +33,8 @@ public class JobSeekersController {
 	}
 	
 	@PostMapping("/register")
-	public Result register(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, 
-			@RequestParam String password, @RequestParam String passwordConfirm, @RequestParam String identitynumber, 
-			@RequestParam int birthYear, @RequestParam int birthMonth, @RequestParam int birthDay) {
-		return this.jobSeekerService.add(firstName, lastName, email, password, passwordConfirm, identitynumber, birthYear, 
-				birthMonth, birthDay);
+	public Result register(@RequestBody JobSeeker jobSeeker) {
+		return this.jobSeekerService.add(jobSeeker);
 	}
 
 }

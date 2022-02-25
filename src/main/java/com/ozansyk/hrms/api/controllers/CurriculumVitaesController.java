@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import com.ozansyk.hrms.entities.concretes.Education;
+import com.ozansyk.hrms.entities.concretes.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,8 +23,6 @@ import com.ozansyk.hrms.core.services.CloudinaryService;
 import com.ozansyk.hrms.core.utilities.results.DataResult;
 import com.ozansyk.hrms.core.utilities.results.ErrorResult;
 import com.ozansyk.hrms.core.utilities.results.Result;
-import com.ozansyk.hrms.entities.concretes.CurriculumVitae;
-import com.ozansyk.hrms.entities.concretes.Photo;
 
 @CrossOrigin
 @RestController
@@ -62,15 +60,15 @@ public class CurriculumVitaesController {
 	
 
 	@GetMapping("/getCvById")
-	public DataResult<CurriculumVitae> getCvById(int jobSeekerId) {
+	public DataResult<CurriculumVitae> getCvById(@RequestParam int jobSeekerId) {
 		return this.curriculumVitaeService.getCv(jobSeekerId);
 	}
 	
 	
 	//Create and add Cv details.
 	@PostMapping("/createCv")
-	public Result createCv(@RequestParam int jobSeekerId, @RequestParam String githubAddress, @RequestParam String linkedinAddress) {
-		return this.curriculumVitaeService.addCv(jobSeekerId, githubAddress, linkedinAddress);
+	public Result createCv(@RequestBody CurriculumVitae curriculumVitae) {
+		return this.curriculumVitaeService.addCv(curriculumVitae);
 	}
 	
 	@PostMapping("/addEducationToCv")
@@ -80,19 +78,13 @@ public class CurriculumVitaesController {
 	}
 	
 	@PostMapping("/addJobExperienceToCv")
-	public Result addJobExperienceToCv(String workplaceName, String positionName, int startTimeYear, int startTimeMonth, int startTimeDay, 
-			Integer endTimeYear, Integer endTimeMonth, Integer endTimeDay, boolean isWorkingNow, int jobSeekerId) {
-		if(endTimeDay == null || endTimeMonth == null || endTimeYear == null) {
-			endTimeDay = 0;
-			endTimeMonth = 0;
-			endTimeYear = 0;
-		}
-		return this.jobExperienceService.addJobExperienceToCv(workplaceName, positionName, startTimeYear, startTimeMonth, startTimeDay, endTimeYear, endTimeMonth, endTimeDay, isWorkingNow, jobSeekerId);
+	public Result addJobExperienceToCv(@RequestBody JobExperience jobExperience) {
+		return this.jobExperienceService.addJobExperienceToCv(jobExperience);
 	}
 	
 	@PostMapping("/addLanguageToCv")
-	public Result addLanguageToCv(String languageName, int languageLevel, int jobSeekerId) {
-		return this.languageService.addLanguageToCv(languageName, languageLevel, jobSeekerId);
+	public Result addLanguageToCv(@RequestBody Language language) {
+		return this.languageService.addLanguageToCv(language);
 	}
 	
 	@PostMapping("/addPhotoToCv")
@@ -112,20 +104,20 @@ public class CurriculumVitaesController {
 	}
 	
 	@PostMapping("/addProgramingLanguageToCv")
-	public Result addProgramingLanguageToCv(String programingLanguageName, int jobSeekerId) {
-		return this.programingLanguageService.addProgramingLanguageToCv(programingLanguageName, jobSeekerId);
+	public Result addProgramingLanguageToCv(@RequestBody ProgramingLanguage programingLanguage) {
+		return this.programingLanguageService.addProgramingLanguageToCv(programingLanguage);
 	}
 	
 	@PostMapping("/addCoverLetterToCv")
-	public Result addCoverLetterToCv(String letter, int jobSeekerId) {
-		return this.coverLetterService.addCoverLetterToCv(letter, jobSeekerId);
+	public Result addCoverLetterToCv(@RequestBody CoverLetter coverLetter) {
+		return this.coverLetterService.addCoverLetterToCv(coverLetter);
 	}
 	
 	
 	//Update Cv details.
 	@PostMapping("/updateCv")
-	public Result updateCv(int jobSeekerId, String githubAddress, String linkedinAddress) {
-		return this.curriculumVitaeService.updateCv(jobSeekerId, githubAddress, linkedinAddress);
+	public Result updateCv(@RequestBody CurriculumVitae curriculumVitae) {
+		return this.curriculumVitaeService.updateCv(curriculumVitae);
 	}
 	
 	

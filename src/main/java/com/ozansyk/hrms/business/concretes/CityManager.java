@@ -1,6 +1,7 @@
 package com.ozansyk.hrms.business.concretes;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,13 +31,12 @@ public class CityManager implements CityService {
 	}
 	
 	@Override
-	public Result add(String cityName) {
+	public Result add(City city) {
 		
-		if(this.cityDao.getByCityName(cityName) != null) {
+		if(!Objects.isNull(this.cityDao.getByCityName(city.getCityName()))) {
 			return new ErrorResult("Bu şehir zaten mevcut!");
 		}
-		
-		City city = new City(cityName);
+
 		this.cityDao.save(city);
 		return new SuccessResult("Şehir eklendi.");
 	}

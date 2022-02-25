@@ -8,6 +8,6 @@ import com.ozansyk.hrms.entities.concretes.Job;
 
 public interface JobService {
 	DataResult<List<Job>> getAll();
-	Result add(String jobName);
+	Result add(Job job);
 	boolean checkJobExist(Job job);
 }

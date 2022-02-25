@@ -33,8 +33,8 @@ public class JobsController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestParam String jobName) {
-		return this.jobService.add(jobName);
+	public Result add(@RequestBody Job job) {
+		return this.jobService.add(job);
 	}
 	
 }

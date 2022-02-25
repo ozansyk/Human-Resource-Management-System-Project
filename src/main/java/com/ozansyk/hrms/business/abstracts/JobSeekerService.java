@@ -10,8 +10,7 @@ public interface JobSeekerService {
 	
 	DataResult<List<JobSeeker>> getAll();
 	
-	Result add(String firstName, String lastName, String email, String password, String passwordConfirm, String identitynumber, 
-		 int birthYear, int birthMonth, int birthDay);
+	Result add(JobSeeker jobSeeker);
 	
 	boolean checkFieldsforRegister(JobSeeker jobSeeker);
 	
