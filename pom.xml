@@ -20,7 +20,7 @@
 	<repositories>
 		<repository>
 			<id>java-net-repo</id>
-			<url>https://github.com/ozansyk/Human-Resource-Management-System-Project/tree/main/hrms</url>
+			<url>https://github.com/ozansyk/Human-Resource-Management-System-Project</url>
 		</repository>
 	</repositories>
 
