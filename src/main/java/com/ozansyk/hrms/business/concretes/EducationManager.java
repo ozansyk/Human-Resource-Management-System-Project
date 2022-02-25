@@ -36,7 +36,7 @@ public class EducationManager implements EducationService {
 		
 		JobSeeker jobSeeker = this.jobSeekerDao.getById(education.getCurriculumVitae().getJobSeeker().getId());
 		educationDao.save(education);
-		return new SuccessResult("Eğitim bilgisi başarıyla eklendi.");
+		return new SuccessResult("Eğitim bilgisi başarıyla eklendi");
 	}
 
 	@Override
