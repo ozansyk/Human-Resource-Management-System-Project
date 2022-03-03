@@ -2,6 +2,7 @@ package com.ozansyk.hrms.business.concretes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,16 @@ public class JobSeekerManager implements JobSeekerService {
 			return new SuccessResult(Messages.jobSeekerSuccessRegistered);
 		} else {
 			return new ErrorResult(registerFailedMessage);
+		}
+	}
+
+	@Override
+	public Result login(JobSeeker jobSeeker) {
+		JobSeeker seeker = jobSeekerDao.findByEmailAndPassword(jobSeeker.getEmail(), jobSeeker.getPassword());
+		if(Objects.isNull(seeker)) {
+			return new ErrorResult(Messages.jobSeekerCheckLoginFailed);
+		} else {
+			return new SuccessResult(Messages.jobSeekerCheckLoginSuccess);
 		}
 	}
 

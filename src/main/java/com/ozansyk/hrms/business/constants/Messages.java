@@ -19,7 +19,9 @@ public class Messages {
 	public static String jobSeekerCheckFailedEmail = "Bu mail ile daha önce kayıt olunmuş!";
 	public static String jobSeekerCheckFailedTc = "Bu TcNo ile daha önce kayıt olunmuş!";
 	public static String jobSeekerCheckFailedEmailFormat = "Yazdığınız email, email formatında değil!";
-	
+	public static String jobSeekerCheckLoginFailed = "Kullanıcı bilgileri doğru değil ya da kayıtlı değilsiniz.";
+	public static String jobSeekerCheckLoginSuccess = "Başarıyla giriş yaptınız.";
+
 	//Jobadvertisement
 	public static String jobAdvertisementListed = "Job advertisements listed.";
 	public static String jobAdvertisementSuccessAdd = "Job advertisement added.";

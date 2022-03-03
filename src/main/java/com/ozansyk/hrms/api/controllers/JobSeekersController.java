@@ -3,6 +3,7 @@ package com.ozansyk.hrms.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,11 @@ public class JobSeekersController {
 	@PostMapping("/register")
 	public Result register(@RequestBody JobSeeker jobSeeker) {
 		return this.jobSeekerService.add(jobSeeker);
+	}
+
+	@PostMapping(value = "/login")
+	public ResponseEntity<Result> login(@RequestBody JobSeeker jobSeeker) {
+		return ResponseEntity.ok(this.jobSeekerService.login(jobSeeker));
 	}
 
 }
