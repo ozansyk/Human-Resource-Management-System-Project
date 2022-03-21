@@ -74,6 +74,11 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 		return new SuccessDataResult<List<CurriculumVitae>>(this.curriculumVitaeDao.findAll());
 	}
 
-	
-	
+	@Override
+	public Result deleteCv(int id) {
+		this.curriculumVitaeDao.deleteById(id);
+		return new SuccessResult("Cv'niz başarıyla silindi.");
+	}
+
+
 }

@@ -119,6 +119,12 @@ public class CurriculumVitaesController {
 	public Result updateCv(@RequestBody CurriculumVitae curriculumVitae) {
 		return this.curriculumVitaeService.updateCv(curriculumVitae);
 	}
+
+	//Delete Cv
+	@DeleteMapping(value = "/deleteCv/{id}")
+	public Result deleteCv(@PathVariable int id) {
+		return this.curriculumVitaeService.deleteCv(id);
+	}
 	
 	
 	//Delete from Cv

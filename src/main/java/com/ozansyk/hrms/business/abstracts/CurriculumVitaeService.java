@@ -15,5 +15,5 @@ public interface CurriculumVitaeService {
 	
 	DataResult<List<CurriculumVitae>> getAllCv();
 
-	
+    Result deleteCv(int id);
 }

@@ -30,6 +30,11 @@ public class CitiesController {
 	public Result add(@RequestBody City city) {
 		return this.cityService.add(city);
 	}
+
+	@GetMapping(value = "/getbyid/{id}")
+	public DataResult<City> getById(@PathVariable int id) {
+		return this.cityService.getById(id);
+	}
 	
 	@DeleteMapping("/delete")
 	public Result delete(@RequestParam int cityId) {

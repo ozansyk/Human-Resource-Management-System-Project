@@ -46,5 +46,10 @@ public class CityManager implements CityService {
 		this.cityDao.deleteById(cityId);
 		return new SuccessResult("Şehir başarıyla silindi.");
 	}
-	
+
+	@Override
+	public DataResult<City> getById(int id) {
+		return new SuccessDataResult<City>(this.cityDao.findById(id).get(), "Şehir bulundu.");
+	}
+
 }
