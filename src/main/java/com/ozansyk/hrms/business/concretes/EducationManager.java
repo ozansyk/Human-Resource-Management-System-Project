@@ -2,6 +2,8 @@ package com.ozansyk.hrms.business.concretes;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +35,14 @@ public class EducationManager implements EducationService {
 
 	@Override
 	public Result addEducationToCv(Education education) {
-		
-		JobSeeker jobSeeker = this.jobSeekerDao.getById(education.getCurriculumVitae().getJobSeeker().getId());
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			System.out.println(mapper.writeValueAsString(education));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
 		educationDao.save(education);
 		return new SuccessResult("Eğitim bilgisi başarıyla eklendi");
 	}

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.ozansyk.hrms.entities.concretes.*;
+import com.ozansyk.hrms.entities.dtos.responseDtos.CurriculumVitaeDtoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,7 +61,7 @@ public class CurriculumVitaesController {
 	
 
 	@GetMapping("/getCvById")
-	public DataResult<CurriculumVitae> getCvById(@RequestParam int jobSeekerId) {
+	public DataResult<CurriculumVitaeDtoResponse> getCvById(@RequestParam int jobSeekerId) {
 		return this.curriculumVitaeService.getCv(jobSeekerId);
 	}
 	

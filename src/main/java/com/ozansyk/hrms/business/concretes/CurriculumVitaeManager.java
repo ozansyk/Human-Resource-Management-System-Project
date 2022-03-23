@@ -3,6 +3,7 @@ package com.ozansyk.hrms.business.concretes;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ozansyk.hrms.entities.dtos.responseDtos.CurriculumVitaeDtoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,9 +42,10 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 
 	//Get Cv By Id
 	@Override
-	public DataResult<CurriculumVitae> getCv(int jobSeekerId) {
+	public DataResult<CurriculumVitaeDtoResponse> getCv(int jobSeekerId) {
 		JobSeeker jobSeeker = this.jobSeekerDao.getById(jobSeekerId);
-		return new SuccessDataResult<CurriculumVitae>(this.curriculumVitaeDao.getByJobSeeker(jobSeeker), "Cv başarıyla getirildi.");
+		CurriculumVitaeDtoResponse curriculumVitaeDtoResponse = this.curriculumVitaeDao.getByJobSeeker2(jobSeeker);
+		return new SuccessDataResult<CurriculumVitaeDtoResponse>(curriculumVitaeDtoResponse, "Cv başarıyla getirildi.");
 	}
 	
 	//Create Cv
